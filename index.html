@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,6 +127,7 @@
             text-align: center;
             position: relative;
             background: radial-gradient(circle at center, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            border-bottom: 2px solid rgba(34, 197, 94, 0.2);
         }
 
         .hero-content {
@@ -175,11 +175,29 @@
             box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
         }
 
-        /* Sections */
+        /* Section Styling - Better Separation */
         section {
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        section:not(.hero) {
+            border-bottom: 2px solid rgba(34, 197, 94, 0.1);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.02) 0%, rgba(16, 185, 129, 0.02) 100%);
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+
+        section:not(.hero)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
         }
 
         h2 {
@@ -231,6 +249,121 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: #d1d5db;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+            transform: translateX(-50%);
+        }
+
+        .experience-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .experience-item:nth-child(odd) {
+            justify-content: flex-end;
+        }
+
+        .experience-item:nth-child(odd) .experience-card {
+            margin-right: 2rem;
+            text-align: right;
+        }
+
+        .experience-item:nth-child(even) .experience-card {
+            margin-left: 2rem;
+        }
+
+        .experience-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .experience-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+            z-index: 1;
+        }
+
+        .experience-period {
+            color: #22c55e;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-title {
+            color: #22c55e;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: #a1a1aa;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .experience-description {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .experience-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .experience-item:nth-child(odd) .experience-tech {
+            justify-content: flex-end;
+        }
+
+        .tech-tag {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
         /* Skills Section */
@@ -366,6 +499,7 @@
             padding: 2rem;
             background: rgba(10, 10, 10, 0.8);
             border-top: 1px solid rgba(34, 197, 94, 0.2);
+            margin-top: 0;
         }
 
         /* Animations */
@@ -414,6 +548,31 @@
             .social-links {
                 flex-wrap: wrap;
             }
+
+            /* Mobile Experience Timeline */
+            .experience-timeline::before {
+                left: 30px;
+            }
+
+            .experience-item {
+                justify-content: flex-start !important;
+                padding-left: 70px;
+            }
+
+            .experience-item .experience-card {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+                max-width: none;
+            }
+
+            .experience-icon {
+                left: 30px !important;
+            }
+
+            .experience-tech {
+                justify-content: flex-start !important;
+            }
         }
     </style>
 </head>
@@ -428,6 +587,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -452,9 +612,69 @@
                 <img src="20250618_032652%20(2).jpg" alt="Profile Picture" class="profile-pic">
             </div>
             <div class="about-text">
-                <p>Hello! I'm a passionate full-stack developer with a love for creating innovative web applications. With expertise in modern frameworks and a keen eye for design, I bring ideas to life through code.</p>
-                <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe in writing clean, maintainable code and creating user experiences that truly matter.</p>
-                <p>My journey in development started with curiosity and has evolved into a career dedicated to solving complex problems and building solutions that impact real users.</p>
+                <p>Hello! I'm a passionate cybersecurity engineer currently working as an Associate at Qualcomm. With expertise in threat hunting, security automation, and a keen eye for innovative solutions, I protect digital landscapes while creating meaningful user experiences.</p>
+                <p>When I'm not hunting threats or automating security processes, you can find me exploring new technologies, contributing to open-source security projects, or sharing knowledge with the cybersecurity community. I believe in building robust, secure solutions that truly matter.</p>
+                <p>My journey in cybersecurity started with curiosity about how systems work and has evolved into a career dedicated to protecting organizations from evolving threats while designing elegant security solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="fade-in">
+        <h2>Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-icon">🏢</div>
+                <div class="experience-card">
+                    <div class="experience-period">2023 - Present</div>
+                    <h3 class="experience-title">Cybersecurity Engineer, Associate</h3>
+                    <div class="experience-company">Qualcomm</div>
+                    <p class="experience-description">
+                        Leading threat hunting initiatives and developing automated security solutions to protect enterprise infrastructure. Implemented advanced detection mechanisms and collaborated with cross-functional teams to enhance overall security posture.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">SIEM</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Threat Intelligence</span>
+                        <span class="tech-tag">Security Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-icon">🛡️</div>
+                <div class="experience-card">
+                    <div class="experience-period">2022 - 2023</div>
+                    <h3 class="experience-title">Security Analyst</h3>
+                    <div class="experience-company">Previous Company</div>
+                    <p class="experience-description">
+                        Monitored security events, conducted incident response activities, and developed security policies. Gained expertise in vulnerability assessment and penetration testing methodologies.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">SOC</span>
+                        <span class="tech-tag">Incident Response</span>
+                        <span class="tech-tag">Vulnerability Assessment</span>
+                        <span class="tech-tag">Network Security</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-icon">🎓</div>
+                <div class="experience-card">
+                    <div class="experience-period">2021 - 2022</div>
+                    <h3 class="experience-title">Cybersecurity Intern</h3>
+                    <div class="experience-company">Tech Solutions Inc.</div>
+                    <p class="experience-description">
+                        Assisted in security assessments, learned industry best practices, and contributed to security awareness programs. Developed foundational skills in cybersecurity frameworks and compliance.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">Security Frameworks</span>
+                        <span class="tech-tag">Compliance</span>
+                        <span class="tech-tag">Risk Assessment</span>
+                        <span class="tech-tag">Documentation</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -464,24 +684,24 @@
         <h2>Skills & Technologies</h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <div class="skill-icon">🚀</div>
-                <h3>Frontend Development</h3>
-                <p>React, Vue.js, Angular, HTML5, CSS3, JavaScript, TypeScript, Sass</p>
+                <div class="skill-icon">🛡️</div>
+                <h3>Cybersecurity</h3>
+                <p>Threat Hunting, SIEM, SOC Operations, Incident Response, Vulnerability Assessment</p>
             </div>
             <div class="skill-card">
-                <div class="skill-icon">⚡</div>
-                <h3>Backend Development</h3>
-                <p>Node.js, Python, Django, Express.js, REST APIs, GraphQL</p>
+                <div class="skill-icon">🤖</div>
+                <h3>Security Automation</h3>
+                <p>Python, PowerShell, SOAR Platforms, Custom Security Tools, API Integration</p>
             </div>
             <div class="skill-card">
-                <div class="skill-icon">📱</div>
-                <h3>Mobile Development</h3>
-                <p>React Native, Flutter, Progressive Web Apps, Responsive Design</p>
+                <div class="skill-icon">🌐</div>
+                <h3>Network Security</h3>
+                <p>Firewalls, IDS/IPS, Network Monitoring, Packet Analysis, Secure Architecture</p>
             </div>
             <div class="skill-card">
-                <div class="skill-icon">🗄️</div>
-                <h3>Database & Cloud</h3>
-                <p>MongoDB, PostgreSQL, MySQL, AWS, Firebase, Docker</p>
+                <div class="skill-icon">☁️</div>
+                <h3>Cloud & DevSecOps</h3>
+                <p>AWS Security, Azure, Docker, CI/CD Security, Infrastructure as Code</p>
             </div>
         </div>
     </section>
@@ -491,10 +711,10 @@
         <h2>Featured Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-image">🌐</div>
+                <div class="project-image">🚨</div>
                 <div class="project-content">
-                    <h3>E-Commerce Platform</h3>
-                    <p>A full-stack e-commerce solution built with React and Node.js, featuring payment integration, user authentication, and admin dashboard.</p>
+                    <h3>Threat Detection System</h3>
+                    <p>Advanced threat detection platform using machine learning algorithms to identify suspicious activities and automate incident response workflows.</p>
                     <div class="project-links">
                         <a href="#" class="project-link">Live Demo</a>
                         <a href="#" class="project-link">GitHub</a>
@@ -502,10 +722,10 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image">📱</div>
+                <div class="project-image">🔒</div>
                 <div class="project-content">
-                    <h3>Task Management App</h3>
-                    <p>A collaborative task management application with real-time updates, built using React Native and Firebase for cross-platform compatibility.</p>
+                    <h3>Security Automation Framework</h3>
+                    <p>Comprehensive security automation framework that streamlines vulnerability management and incident response processes across enterprise environments.</p>
                     <div class="project-links">
                         <a href="#" class="project-link">Live Demo</a>
                         <a href="#" class="project-link">GitHub</a>
@@ -513,10 +733,10 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image">🎨</div>
+                <div class="project-image">📊</div>
                 <div class="project-content">
-                    <h3>Portfolio Website</h3>
-                    <p>A modern, responsive portfolio website showcasing creative design and smooth animations, built with vanilla JavaScript and CSS.</p>
+                    <h3>Security Dashboard</h3>
+                    <p>Real-time security monitoring dashboard providing comprehensive visibility into security metrics, threat intelligence, and compliance status.</p>
                     <div class="project-links">
                         <a href="#" class="project-link">Live Demo</a>
                         <a href="#" class="project-link">GitHub</a>
@@ -530,7 +750,7 @@
     <section id="contact" class="fade-in">
         <h2>Let's Connect</h2>
         <div class="contact-content">
-            <p>I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology. Feel free to reach out!</p>
+            <p>I'm always open to discussing new opportunities, interesting cybersecurity projects, or just having a chat about technology and security trends. Feel free to reach out!</p>
             <div class="social-links">
                 <a href="https://github.com/yourusername" class="social-link" title="GitHub">📱</a>
                 <a href="https://linkedin.com/in/yourusername" class="social-link" title="LinkedIn">💼</a>
@@ -542,7 +762,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Your Name. Built with passion and lots of coffee ☕</p>
+        <p>&copy; 2025 Shriya Bandi. Built with passion and lots of coffee ☕</p>
     </footer>
 
     <script>
