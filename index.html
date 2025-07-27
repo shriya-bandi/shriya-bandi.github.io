@@ -525,6 +525,248 @@
             transform: translateY(0);
         }
 
+        /* CHATBOT STYLES */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.open {
+            display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2));
+            border-bottom: 1px solid rgba(34, 197, 94, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            color: #22c55e;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: #a1a1aa;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .chatbot-close:hover {
+            color: #22c55e;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 3px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.3);
+            border-radius: 3px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+            color: #e5e7eb;
+            align-self: flex-start;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+            color: #e5e7eb;
+            align-self: flex-end;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            padding: 0.8rem 1rem;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+            border-radius: 15px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chatbot-input-container {
+            padding: 1rem;
+            border-top: 1px solid rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.02);
+        }
+
+        .chatbot-input-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input:focus {
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+        }
+
+        .chatbot-input::placeholder {
+            color: #6b7280;
+        }
+
+        .chatbot-send {
+            padding: 0.8rem 1rem;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-send:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .chatbot-send:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .quick-question {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+            padding: 0.6rem 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .quick-question:hover {
+            background: rgba(34, 197, 94, 0.2);
+            transform: translateY(-1px);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -573,6 +815,16 @@
             .experience-tech {
                 justify-content: flex-start !important;
             }
+
+            .chatbot-window {
+                width: 90vw;
+                height: 70vh;
+                right: 5vw;
+            }
+
+            .chatbot-container {
+                right: 5vw;
+            }
         }
     </style>
 </head>
@@ -609,12 +861,12 @@
         <h2>About Me</h2>
         <div class="about-content">
             <div class="about-image">
-                <img src="20250618_032652%20(2).jpg" alt="Profile Picture" class="profile-pic">
+                <img src="20250618_032652%20(2).jpg" alt="Profile Picture" class="profile-pic" onerror="this.style.display='none'">
             </div>
             <div class="about-text">
-                <p>Hello! I'm a passionate cybersecurity engineer currently working as an Associate at Qualcomm. With expertise in threat hunting, security automation, and a keen eye for innovative solutions, I protect digital landscapes while creating meaningful user experiences.</p>
-                <p>When I'm not hunting threats or automating security processes, you can find me exploring new technologies, contributing to open-source security projects, or sharing knowledge with the cybersecurity community. I believe in building robust, secure solutions that truly matter.</p>
-                <p>My journey in cybersecurity started with curiosity about how systems work and has evolved into a career dedicated to protecting organizations from evolving threats while designing elegant security solutions.</p>
+                <p>Hello! I'm a passionate cybersecurity engineer currently working as an Associate at Qualcomm in Hyderabad. With expertise in threat hunting, SOAR automation, and innovative security solutions, I protect digital landscapes while creating meaningful user experiences.</p>
+                <p>I live at the intersection of tech & creativity — from automating daily chaos to chasing cyber threats and building beautiful tools. My journey started with a BTech in Computer Science with specialization in IoT, Blockchain, and Cyber Security.</p>
+                <p>When I'm not automating SOC operations or building custom security playbooks, you can find me painting (I'm a self-learned artist!), taking care of my plants (my room = jungle core), or exploring AI art tools. I believe in building robust, secure solutions that truly matter.</p>
             </div>
         </div>
     </section>
@@ -624,56 +876,59 @@
         <h2>Professional Experience</h2>
         <div class="experience-timeline">
             <div class="experience-item">
-                <div class="experience-icon">🏢</div>
-                <div class="experience-card">
-                    <div class="experience-period">2023 - Present</div>
-                    <h3 class="experience-title">Cybersecurity Engineer, Associate</h3>
-                    <div class="experience-company">Qualcomm</div>
-                    <div style="color: #a1a1aa; font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">Previously: Cybersecurity Intern (2022 - 2023)</div>
-                    <p class="experience-description">
-                        Leading threat hunting initiatives and developing automated security solutions to protect enterprise infrastructure. Implemented advanced detection mechanisms and collaborated with cross-functional teams to enhance overall security posture.
-                    </p>
-                    <div class="experience-tech">
-                        <span class="tech-tag">SIEM</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Threat Intelligence</span>
-                        <span class="tech-tag">Security Automation</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="experience-item">
                 <div class="experience-icon">🛡️</div>
                 <div class="experience-card">
-                    <div class="experience-period">2022 - 2023</div>
-                    <h3 class="experience-title">Security Analyst</h3>
-                    <div class="experience-company">Previous Company</div>
+                    <div class="experience-period">July 2024 - Present</div>
+                    <h3 class="experience-title">Cyber Security Engineer, Associate</h3>
+                    <div class="experience-company">Qualcomm, Hyderabad</div>
                     <p class="experience-description">
-                        Monitored security events, conducted incident response activities, and developed security policies. Gained expertise in vulnerability assessment and penetration testing methodologies.
+                        Leading SOC operations and developing automated security solutions. Built custom playbooks that reduced manual work by ~87%. Specializing in threat analysis, incident response, and security automation using SOAR platforms.
                     </p>
                     <div class="experience-tech">
-                        <span class="tech-tag">SOC</span>
-                        <span class="tech-tag">Incident Response</span>
-                        <span class="tech-tag">Vulnerability Assessment</span>
-                        <span class="tech-tag">Network Security</span>
+                        <span class="tech-tag">Splunk</span>
+                        <span class="tech-tag">Phantom SOAR</span>
+                        <span class="tech-tag">Tines</span>
+                        <span class="tech-tag">Microsoft Defender</span>
+                        <span class="tech-tag">Proofpoint</span>
+                        <span class="tech-tag">Python</span>
                     </div>
                 </div>
             </div>
 
             <div class="experience-item">
-                <div class="experience-icon">🎓</div>
+                <div class="experience-icon">🎯</div>
                 <div class="experience-card">
-                    <div class="experience-period">2021 - 2022</div>
+                    <div class="experience-period">Jan 2024 - July 2024</div>
                     <h3 class="experience-title">Cybersecurity Intern</h3>
-                    <div class="experience-company">Tech Solutions Inc.</div>
+                    <div class="experience-company">Qualcomm, Hyderabad</div>
                     <p class="experience-description">
-                        Assisted in security assessments, learned industry best practices, and contributed to security awareness programs. Developed foundational skills in cybersecurity frameworks and compliance.
+                        Focused on automating Proofpoint detected alerts and building the foundation for advanced threat detection systems. Developed skills in security orchestration and incident response automation.
                     </p>
                     <div class="experience-tech">
-                        <span class="tech-tag">Security Frameworks</span>
-                        <span class="tech-tag">Compliance</span>
-                        <span class="tech-tag">Risk Assessment</span>
-                        <span class="tech-tag">Documentation</span>
+                        <span class="tech-tag">Proofpoint</span>
+                        <span class="tech-tag">SOAR Automation</span>
+                        <span class="tech-tag">Threat Analysis</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-icon">🚀</div>
+                <div class="experience-card">
+                    <div class="experience-period">2023</div>
+                    <h3 class="experience-title">Startup Intern</h3>
+                    <div class="experience-company">Silk Route Advisors</div>
+                    <p class="experience-description">
+                        Explored AI Art tools, wrote Notion blogs, designed with Figma, and played with GenAI. Collaborated on cryptocurrency article webpage, web scraping, data cleaning, and visualizations. Built a Certificate Generator using OpenCV.
+                    </p>
+                    <div class="experience-tech">
+                        <span class="tech-tag">AI Art</span>
+                        <span class="tech-tag">GenAI</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">BeautifulSoup</span>
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">Data Visualization</span>
                     </div>
                 </div>
             </div>
@@ -686,23 +941,23 @@
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon">🛡️</div>
-                <h3>Cybersecurity</h3>
-                <p>Threat Hunting, SIEM, SOC Operations, Incident Response, Vulnerability Assessment</p>
+                <h3>Cyber & Automation Tools</h3>
+                <p>Splunk, Phantom & Tines (SOAR), Microsoft Defender for Endpoint, Proofpoint, Azure Security Center, VirusTotal, MDE (KQL queries)</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">⚙️</div>
+                <h3>Developer Comfort Zone</h3>
+                <p>Python 🐍, SPL, KQL, Software Engineering Principles, Jupyter Notebooks, PyCharm, HTML, CSS, JS</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>Creative Stack</h3>
+                <p>Hugging Face 🤗, Stable Diffusion, AI Art, Notion blogs, Figma for beautiful UIs, Traditional Art & Painting</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">🤖</div>
-                <h3>Security Automation</h3>
-                <p>Python, PowerShell, SOAR Platforms, Custom Security Tools, API Integration</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🌐</div>
-                <h3>Network Security</h3>
-                <p>Firewalls, IDS/IPS, Network Monitoring, Packet Analysis, Secure Architecture</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">☁️</div>
-                <h3>Cloud & DevSecOps</h3>
-                <p>AWS Security, Azure, Docker, CI/CD Security, Infrastructure as Code</p>
+                <h3>Automation & AI</h3>
+                <p>SOAR Playbooks, Security Automation, Machine Learning, GenAI, Web Scraping, Data Analysis</p>
             </div>
         </div>
     </section>
@@ -714,32 +969,60 @@
             <div class="project-card">
                 <div class="project-image">🚨</div>
                 <div class="project-content">
-                    <h3>Threat Detection System</h3>
-                    <p>Advanced threat detection platform using machine learning algorithms to identify suspicious activities and automate incident response workflows.</p>
+                    <h3>Automated Defence Playbook</h3>
+                    <p>SOAR playbook for analyzing phishing emails with 87% work reduction. Integrates VirusTotal, Threadgrid, and URLScan APIs for comprehensive IOC analysis and threat categorization.</p>
                     <div class="project-links">
-                        <a href="#" class="project-link">Live Demo</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">🔒</div>
-                <div class="project-content">
-                    <h3>Security Automation Framework</h3>
-                    <p>Comprehensive security automation framework that streamlines vulnerability management and incident response processes across enterprise environments.</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link">Live Demo</a>
-                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Details</a>
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">📊</div>
                 <div class="project-content">
-                    <h3>Security Dashboard</h3>
-                    <p>Real-time security monitoring dashboard providing comprehensive visibility into security metrics, threat intelligence, and compliance status.</p>
+                    <h3>DLP Smart Document Analyzer</h3>
+                    <p>AI-powered tool using FastAPI and Streamlit that extracts, summarizes, and detects sensitive information from documents, URLs, and text with multilingual support and PDF reporting.</p>
                     <div class="project-links">
                         <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🔍</div>
+                <div class="project-content">
+                    <h3>Duplicate Check Playbook</h3>
+                    <p>Advanced SOAR playbook using regex and custom Python functions to detect duplicate security alerts, prioritizing analyst workload and improving SOC efficiency.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🏥</div>
+                <div class="project-content">
+                    <h3>Lung Cancer Detection</h3>
+                    <p>Machine learning project using SVM, K-means, and Naive Bayes algorithms for lung cancer detection with comprehensive data preprocessing and visualization using Seaborn.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">👁️</div>
+                <div class="project-content">
+                    <h3>Obstacle Detection for Visually Impaired</h3>
+                    <p>IoT glove using ultrasonic sensors, GPS module, and GSM modem connected via Blynk cloud platform to help visually impaired individuals navigate safely.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">📜</div>
+                <div class="project-content">
+                    <h3>Certificate Generator</h3>
+                    <p>OpenCV-based automation tool that generates personalized certificates from Excel data, with dynamic text placement and PDF conversion for event management.</p>
+                    <div class="project-links">
                         <a href="#" class="project-link">GitHub</a>
                     </div>
                 </div>
@@ -751,12 +1034,12 @@
     <section id="contact" class="fade-in">
         <h2>Let's Connect</h2>
         <div class="contact-content">
-            <p>I'm always open to discussing new opportunities, interesting cybersecurity projects, or just having a chat about technology and security trends. Feel free to reach out!</p>
+            <p>I'm always open to discussing new opportunities, interesting cybersecurity projects, or just having a chat about technology, security trends, and creative automation. Feel free to reach out!</p>
             <div class="social-links">
-                <a href="https://github.com/yourusername" class="social-link" title="GitHub">📱</a>
-                <a href="https://linkedin.com/in/yourusername" class="social-link" title="LinkedIn">💼</a>
-                <a href="mailto:your.email@example.com" class="social-link" title="Email">📧</a>
-                <a href="https://twitter.com/yourusername" class="social-link" title="Twitter">🐦</a>
+                <a href="https://github.com/shriyabandi" class="social-link" title="GitHub">📱</a>
+                <a href="https://linkedin.com/in/shriyabandi" class="social-link" title="LinkedIn">💼</a>
+                <a href="mailto:shriya.bandi@example.com" class="social-link" title="Email">📧</a>
+                <a href="https://twitter.com/shriyabandi" class="social-link" title="Twitter">🐦</a>
             </div>
         </div>
     </section>
@@ -765,6 +1048,41 @@
     <footer>
         <p>&copy; 2025 Shriya Bandi. Built with passion and lots of coffee ☕</p>
     </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle">💬</button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Ask me anything! 🤖</h3>
+                <button class="chatbot-close" id="chatbotClose">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    Hi! I'm Shriya's AI assistant. I can tell you about her experience in cybersecurity, projects, skills, and more. What would you like to know?
+                    <div class="quick-questions">
+                        <button class="quick-question" onclick="askQuestion('Tell me about Shriya\\'s work at Qualcomm')">🏢 Tell me about her work at Qualcomm</button>
+                        <button class="quick-question" onclick="askQuestion('What SOAR projects has she worked on?')">🚨 What SOAR projects has she worked on?</button>
+                        <button class="quick-question" onclick="askQuestion('Does she have experience with AI/GenAI?')">🤖 Does she have AI/GenAI experience?</button>
+                        <button class="quick-question" onclick="askQuestion('What are her creative hobbies?')">🎨 What are her creative hobbies?</button>
+                    </div>
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <form class="chatbot-input-form" id="chatbotForm">
+                    <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask me about Shriya..." autocomplete="off">
+                    <button type="submit" class="chatbot-send" id="chatbotSend">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Smooth scrolling for navigation links
@@ -828,7 +1146,7 @@
         // Initialize particles when page loads
         window.addEventListener('load', createParticles);
 
-        // Add typing effect to hero title (optional enhancement)
+        // Add typing effect to hero title
         const heroTitle = document.querySelector('.hero h1');
         const originalText = heroTitle.textContent;
         heroTitle.textContent = '';
@@ -842,8 +1160,289 @@
             }
         };
         
-        // Start typing effect after a short delay
         setTimeout(typeWriter, 1000);
+
+        // CHATBOT FUNCTIONALITY
+        class ShriyaChatbot {
+            constructor() {
+                this.isOpen = false;
+                this.knowledge = {
+                    // Personal & Basic Info
+                    personal: {
+                        name: "Shriya Bandi",
+                        role: "Cyber Security Engineer, Associate",
+                        company: "Qualcomm",
+                        location: "Hyderabad",
+                        education: "BTech in Computer Science with specialization in IoT, Blockchain, and Cyber Security",
+                        personality: "Lives at the intersection of tech & creativity, automates lazy tasks, self-learned artist, plant mom",
+                        achievements: ["QSparkler award at Qualcomm", "Event Organizer for Model United Nations (400+ delegates)", "Creative face painting stall marketing"]
+                    },
+                    
+                    // Work Experience
+                    experience: {
+                        qualcomm_current: {
+                            role: "Cyber Security Engineer, Associate",
+                            duration: "July 2024 - Present",
+                            company: "Qualcomm, Hyderabad",
+                            description: "Leading SOC operations and developing automated security solutions. Built custom playbooks that reduced manual work by ~87%."
+                        },
+                        qualcomm_intern: {
+                            role: "Cybersecurity Intern",
+                            duration: "Jan 2024 - July 2024", 
+                            company: "Qualcomm, Hyderabad",
+                            description: "Major project was automating Proofpoint detected alerts"
+                        },
+                        startup: {
+                            role: "Startup Intern",
+                            company: "Silk Route Advisors",
+                            description: "Explored AI Art tools, wrote Notion blogs, designed with Figma, played with GenAI. Collaborated on cryptocurrency article webpage, web scraping, data cleaning, visualizations."
+                        }
+                    },
+
+                    // Technical Skills
+                    skills: {
+                        cyber_tools: ["Splunk", "Phantom SOAR", "Tines SOAR", "Microsoft Defender for Endpoint", "Proofpoint", "Azure Security Center", "VirusTotal", "DNS Twist", "Wayback Machine"],
+                        programming: ["Python", "SPL queries", "KQL queries", "Software Engineering Principles"],
+                        development: ["Jupyter Notebooks", "PyCharm", "HTML", "CSS", "JavaScript", "Figma"],
+                        creative: ["Hugging Face", "Stable Diffusion", "AI Art", "Notion blogs", "Traditional painting and drawing"],
+                        ai_tools: ["Deepfloyd", "Midjourney", "Stable Diffusion", "Various Hugging Face models"]
+                    },
+
+                    // Projects
+                    projects: {
+                        automated_defence: {
+                            name: "Automated Defence Playbook",
+                            description: "SOAR playbook for automating analysis of phishing mails reported by users and detected from Proofpoint. Integrated APIs of VirusTotal, Threadgrid, URLScan. Fetches IOCs, analyzes them, and categorizes as True Positive Malicious/Suspicious or False Positive. Decreased work by ~87%.",
+                            tech: ["Phantom SOAR", "VirusTotal API", "Threadgrid API", "URLScan API"]
+                        },
+                        dlp_analyzer: {
+                            name: "DLP Smart Document Analyzer", 
+                            description: "AI-powered tool using FastAPI and Streamlit that extracts, summarizes, and detects sensitive information from text, URLs, and uploaded documents. Supports multilingual summarization and generates downloadable PDF reports.",
+                            tech: ["FastAPI", "Streamlit", "LLaMA3", "Ollama", "fpdf"]
+                        },
+                        duplicate_check: {
+                            name: "Duplicate Check Playbook",
+                            description: "SOAR playbook to decrease duplicates in SOC operations. Uses regex and custom Python functions to compare IOCs and hashes, gives duplicate scores, and automatically closes or prompts analysts based on threshold values.",
+                            tech: ["Python", "Regex", "SOAR"]
+                        },
+                        lung_cancer: {
+                            name: "Lung Cancer Detection",
+                            description: "Machine learning project using SVM, K-means, and Naive Bayes algorithms for lung cancer detection with data preprocessing and Seaborn visualizations.",
+                            tech: ["Python", "SVM", "K-means", "Naive Bayes", "Seaborn"]
+                        },
+                        obstacle_detection: {
+                            name: "Obstacle Detection for Visually Impaired",
+                            description: "College tech fest project - created a glove using ultrasonic sensors, GPS module, and GSM modem connected via Blynk cloud platform to Arduino.",
+                            tech: ["Arduino", "Ultrasonic Sensors", "GPS", "GSM", "Blynk"]
+                        },
+                        certificate_generator: {
+                            name: "Certificate Generator",
+                            description: "OpenCV-based tool that reads names and dates from Excel, places them on certificate templates, and exports as PDFs.",
+                            tech: ["OpenCV", "Python", "openpyxl", "img2pdf"]
+                        },
+                        keylogger: {
+                            name: "Keylogger",
+                            description: "Developed a keylogger with 96% data conservation using tkinter, pynput, playsound, and text-to-speech modules.",
+                            tech: ["Python", "tkinter", "pynput"]
+                        }
+                    },
+
+                    // Hobbies & Interests
+                    hobbies: {
+                        creative: ["Self-learned traditional painting and drawing", "AI art generation", "Face painting"],
+                        personal: ["Plant mom - room is jungle core", "Notion blogging", "Figma UI design"],
+                        professional: ["Security automation", "Threat hunting", "Building custom tools"]
+                    }
+                };
+
+                this.initEventListeners();
+            }
+
+            initEventListeners() {
+                const toggle = document.getElementById('chatbotToggle');
+                const close = document.getElementById('chatbotClose');
+                const form = document.getElementById('chatbotForm');
+
+                toggle.addEventListener('click', () => this.toggleChat());
+                close.addEventListener('click', () => this.closeChat());
+                form.addEventListener('submit', (e) => this.handleSubmit(e));
+            }
+
+            toggleChat() {
+                const window = document.getElementById('chatbotWindow');
+                this.isOpen = !this.isOpen;
+                
+                if (this.isOpen) {
+                    window.classList.add('open');
+                    document.getElementById('chatbotInput').focus();
+                } else {
+                    window.classList.remove('open');
+                }
+            }
+
+            closeChat() {
+                document.getElementById('chatbotWindow').classList.remove('open');
+                this.isOpen = false;
+            }
+
+            async handleSubmit(e) {
+                e.preventDefault();
+                const input = document.getElementById('chatbotInput');
+                const question = input.value.trim();
+                
+                if (!question) return;
+
+                this.addMessage(question, 'user');
+                input.value = '';
+                
+                this.showTyping();
+                
+                // Simulate thinking time
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+                
+                const response = this.generateResponse(question.toLowerCase());
+                this.hideTyping();
+                this.addMessage(response, 'bot');
+            }
+
+            addMessage(text, sender) {
+                const messages = document.getElementById('chatbotMessages');
+                const message = document.createElement('div');
+                message.className = `message ${sender}`;
+                message.innerHTML = text;
+                messages.appendChild(message);
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            showTyping() {
+                document.getElementById('typingIndicator').style.display = 'block';
+                document.getElementById('chatbotMessages').scrollTop = document.getElementById('chatbotMessages').scrollHeight;
+            }
+
+            hideTyping() {
+                document.getElementById('typingIndicator').style.display = 'none';
+            }
+
+            generateResponse(question) {
+                // Normalize question
+                const q = question.toLowerCase();
+                
+                // Work Experience
+                if (q.includes('qualcomm') || q.includes('work') || q.includes('job') || q.includes('current role')) {
+                    if (q.includes('intern')) {
+                        return `Shriya did her internship at Qualcomm from Jan 2024 to July 2024. Her major project was automating Proofpoint detected alerts. She then joined full-time as a Cyber Security Engineer Associate in July 2024, where she's been leading SOC operations and building automated security solutions that reduced manual work by ~87%! 🚀`;
+                    }
+                    return `Shriya is currently a Cyber Security Engineer, Associate at Qualcomm in Hyderabad. She's been there since July 2024 (previously interned from Jan-July 2024). She leads SOC operations, develops automated security solutions, and has built custom playbooks that reduced manual work by ~87%. She got the QSparkler award for amazing performance! 🏆`;
+                }
+
+                // SOAR Projects
+                if (q.includes('soar') || q.includes('automation') || q.includes('playbook')) {
+                    return `Shriya has worked on several impressive SOAR projects! 🤖<br><br>
+                    <strong>1. Automated Defence Playbook:</strong> Automates phishing email analysis from users and Proofpoint. Integrates VirusTotal, Threadgrid, URLScan APIs to analyze IOCs and categorize threats - reduced work by ~87%!<br><br>
+                    <strong>2. IT Security Tickets Integration:</strong> Connected ServiceNow dashboard to Phantom SOAR with pager alerts for critical tickets.<br><br>
+                    <strong>3. Duplicate Check Playbook:</strong> Uses regex and custom Python functions to detect duplicate alerts and prioritize analyst work.<br><br>
+                    She's really passionate about automating lazy tasks! 😄`;
+                }
+
+                // AI/GenAI Experience
+                if (q.includes('ai') || q.includes('genai') || q.includes('artificial intelligence') || q.includes('machine learning')) {
+                    return `Yes! Shriya has great AI/GenAI experience! 🤖✨<br><br>
+                    At <strong>Silk Route Advisors</strong>, she explored AI Art tools, worked with GenAI, and wrote Notion blogs about AI models like Deepfloyd, Midjourney, and Stable Diffusion.<br><br>
+                    Her <strong>DLP Smart Document Analyzer</strong> uses LLaMA3 via Ollama for intelligent document analysis.<br><br>
+                    She's also built a <strong>Lung Cancer Detection</strong> system using SVM, K-means, and Naive Bayes algorithms.<br><br>
+                    Plus, she loves experimenting with Hugging Face models and creating AI art! 🎨`;
+                }
+
+                // Creative/Hobbies
+                if (q.includes('creative') || q.includes('art') || q.includes('paint') || q.includes('hobby') || q.includes('personal')) {
+                    return `Shriya is super creative! 🎨✨<br><br>
+                    She's a <strong>self-learned traditional artist</strong> who paints and draws IRL. She even ran a face painting stall at college fest with amazing marketing skills!<br><br>
+                    She's also into <strong>AI art</strong> - works with Stable Diffusion, Midjourney, and other AI art tools.<br><br>
+                    She's a proud <strong>plant mom</strong> - her room is basically jungle core! 🌿<br><br>
+                    She loves writing Notion blogs, designing with Figma, and believes "even AI art needs a muse" 😉`;
+                }
+
+                // Projects
+                if (q.includes('project') || q.includes('built') || q.includes('developed')) {
+                    return `Shriya has built some amazing projects! Here are highlights:<br><br>
+                    🚨 <strong>Automated Defence Playbook</strong> - SOAR automation reducing work by 87%<br>
+                    📊 <strong>DLP Smart Document Analyzer</strong> - AI-powered document analysis tool<br>
+                    👁️ <strong>Obstacle Detection Glove</strong> - IoT project for visually impaired<br>
+                    🏥 <strong>Lung Cancer Detection</strong> - ML project with SVM algorithms<br>
+                    📜 <strong>Certificate Generator</strong> - OpenCV automation tool<br>
+                    🔍 <strong>Duplicate Check Playbook</strong> - SOAR efficiency improvement<br><br>
+                    Want details about any specific project?`;
+                }
+
+                // Skills/Technologies
+                if (q.includes('skill') || q.includes('technology') || q.includes('tools') || q.includes('tech stack')) {
+                    return `Shriya has an impressive tech stack! 💻<br><br>
+                    <strong>🛡️ Cyber & Automation:</strong> Splunk, Phantom & Tines SOAR, Microsoft Defender, Proofpoint, Azure Security Center<br><br>
+                    <strong>⚙️ Programming:</strong> Python, SPL queries, KQL queries, Software Engineering Principles<br><br>
+                    <strong>🎨 Creative:</strong> Hugging Face, Stable Diffusion, AI Art, Figma, Traditional Art<br><br>
+                    <strong>🤖 Development:</strong> FastAPI, Streamlit, OpenCV, Jupyter Notebooks, HTML/CSS/JS<br><br>
+                    She really lives at the intersection of tech & creativity! ✨`;
+                }
+
+                // Education
+                if (q.includes('education') || q.includes('degree') || q.includes('study') || q.includes('college')) {
+                    return `Shriya has a BTech in Computer Science with specialization in IoT, Blockchain, and Cyber Security! 🎓<br><br>During college, she worked on cool projects like the Obstacle Detection glove for visually impaired people and organized Model United Nations events with 400+ delegates. She was also creative with a face painting stall at college fest! 🎨`;
+                }
+
+                // Location
+                if (q.includes('location') || q.includes('where') || q.includes('hyderabad') || q.includes('india')) {
+                    return `Shriya is based in Hyderabad, Telangana, India! 🇮🇳 She works at Qualcomm's Hyderabad office. Perfect city for a tech professional with her jungle-core room full of plants! 🌿`;
+                }
+
+                // Achievements
+                if (q.includes('achievement') || q.includes('award') || q.includes('recognition')) {
+                    return `Shriya has some great achievements! 🏆<br><br>
+                    🌟 <strong>QSparkler Award</strong> at Qualcomm for amazing performance<br>
+                    👥 <strong>Event Organizer</strong> for Model United Nations managing 400+ delegates<br>
+                    🎨 <strong>Creative Marketing</strong> - Face painting stall success with last-minute marketing genius<br>
+                    ⚡ <strong>87% Work Reduction</strong> through her SOAR automation playbooks<br><br>
+                    She's definitely making an impact wherever she goes!`;
+                }
+
+                // Startup Experience
+                if (q.includes('startup') || q.includes('silk route')) {
+                    return `Yes! Shriya interned at Silk Route Advisors, a startup where she got to explore everything! 🚀<br><br>
+                    She worked on AI Art tools, wrote Notion blogs about AI models (Deepfloyd, Midjourney, Stable Diffusion), designed with Figma, and played with GenAI. She also collaborated on a cryptocurrency article webpage, did web scraping with BeautifulSoup, data cleaning, and built a Certificate Generator using OpenCV.<br><br>
+                    As she says: "Learned by doing everything (perks of startup life!)" 😄`;
+                }
+
+                // Contact/Connect
+                if (q.includes('contact') || q.includes('reach') || q.includes('connect') || q.includes('email') || q.includes('linkedin')) {
+                    return `You can connect with Shriya through several channels! 📱<br><br>
+                    💼 LinkedIn: Professional updates and networking<br>
+                    📱 GitHub: Check out her code and projects<br>
+                    📧 Email: For professional inquiries<br>
+                    🐦 Twitter: Tech thoughts and updates<br><br>
+                    She's always open to discussing cybersecurity projects, automation ideas, or just chatting about tech and creativity! ✨`;
+                }
+
+                // Default responses for unclear questions
+                const defaultResponses = [
+                    "That's an interesting question! Could you be more specific? I can tell you about Shriya's work at Qualcomm, her SOAR projects, AI experience, creative hobbies, or technical skills. What interests you most? 🤔",
+                    "I'd love to help! I know a lot about Shriya's cybersecurity work, automation projects, AI art experience, and creative side. What would you like to explore? 🚀",
+                    "Great question! I can share details about her Qualcomm experience, SOAR automation work, AI/GenAI projects, or her creative pursuits. What sounds most interesting? ✨",
+                    "I'm not sure I understood completely. Try asking about her current role, technical projects, AI experience, or creative hobbies - I have lots of details about those! 💡"
+                ];
+
+                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+            }
+        }
+
+        // Initialize chatbot when page loads
+        window.addEventListener('load', () => {
+            new ShriyaChatbot();
+        });
+
+        // Quick question function
+        function askQuestion(question) {
+            document.getElementById('chatbotInput').value = question;
+            document.getElementById('chatbotForm').dispatchEvent(new Event('submit'));
+        }
     </script>
 </body>
-</html>
+</html> 
