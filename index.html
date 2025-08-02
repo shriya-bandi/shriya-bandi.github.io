@@ -17,6 +17,72 @@
             color: #ffffff;
             overflow-x: hidden;
         }
+        .hero-avatar-container {
+    position: relative;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.avatar-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid #22c55e;
+    box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3);
+    transition: all 0.3s ease;
+    animation: avatarFloat 3s ease-in-out infinite;
+}
+
+.avatar-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 45px rgba(34, 197, 94, 0.5);
+}
+
+.speech-bubble {
+    position: absolute;
+    top: -15px;
+    right: -20px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+    animation: bubbleBounce 2s ease-in-out infinite;
+    transform-origin: bottom left;
+}
+
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #16a34a;
+}
+
+@keyframes avatarFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes bubbleBounce {
+    0%, 100% { transform: scale(1) rotate(-2deg); }
+    50% { transform: scale(1.05) rotate(2deg); }
+}
+
+.dynamic-greeting {
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.6); }
+}
 
         /* Animated background particles */
         .particles {
@@ -711,12 +777,17 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Shriya Bandi</h1>
-            <p>🛡️ Cyber Security Engineer, Associate @ Qualcomm<br>✨ Living at the intersection of tech & creativity — automating chaos & hunting threats</p>
-            <a href="#projects" class="cta-button">View My Work</a>
+    <div class="hero-content">
+        <div class="hero-avatar-container">
+            <img src="shriya-avatar.png" alt="Shriya waving hello" class="avatar-image">
+            <div class="speech-bubble">
+                <span class="dynamic-greeting">Hi there! 👋</span>
+            </div>
         </div>
-    </section>
+        <p>🛡️ Cyber Security Engineer, Associate @ Qualcomm<br>✨ Living at the intersection of tech & creativity — automating chaos & hunting threats</p>
+        <a href="#projects" class="cta-button">View My Work</a>
+    </div>
+</section>
 
     <!-- About Section -->
     <section id="about" class="fade-in">
@@ -1131,7 +1202,34 @@
                 particlesContainer.appendChild(particle);
             }
         }
+// my emoji hi 
+    const greetings = [
+    "Hi there! 👋",
+    "Hello! 😊",
+    "Hey! 🌟",
+    "Welcome! ✨",
+    "Greetings! 🙋‍♀️",
+    "Nice to meet you! 💫"
+];
 
+let currentGreeting = 0;
+const greetingElement = document.querySelector('.dynamic-greeting');
+
+function changeGreeting() {
+    greetingElement.style.opacity = '0';
+    
+    setTimeout(() => {
+        currentGreeting = (currentGreeting + 1) % greetings.length;
+        greetingElement.textContent = greetings[currentGreeting];
+        greetingElement.style.opacity = '1';
+    }, 300);
+}
+
+// Change greeting every 3 seconds
+setInterval(changeGreeting, 3000);
+
+// Add smooth opacity transition
+greetingElement.style.transition = 'opacity 0.3s ease';
         // Initialize particles when page loads
         window.addEventListener('load', createParticles);
 
