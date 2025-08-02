@@ -16,8 +16,8 @@
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             color: #ffffff;
             overflow-x: hidden;
-        }
-        .hero-avatar-container {
+/* Bit emoji */
+            .hero-avatar-container {
     position: relative;
     margin-bottom: 2rem;
     display: inline-block;
@@ -51,31 +51,20 @@
     box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
     animation: bubbleBounce 2s ease-in-out infinite;
     transform-origin: bottom left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    user-select: none; /* Prevents text selection */
 }
 
-.speech-bubble:hover {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.5);
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #16a34a;
 }
 
-.speech-bubble:active {
-    transform: scale(0.95);
-}
-
-/* Add a subtle pulse animation to hint it's clickable */
-@keyframes clickHint {
-    0%, 100% { box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4); }
-    50% { box-shadow: 0 8px 25px rgba(34, 197, 94, 0.6), 0 0 0 4px rgba(34, 197, 94, 0.2); }
-}
-
-.speech-bubble {
-    animation: bubbleBounce 2s ease-in-out infinite, clickHint 3s ease-in-out infinite;
-}
-        
 @keyframes avatarFloat {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
@@ -1214,52 +1203,34 @@
             }
         }
 // my emoji hi 
+// Add this to your existing script section
 const greetings = [
     "Hi there! 👋",
-    "Hello! 😊", 
+    "Hello! 😊",
     "Hey! 🌟",
     "Welcome! ✨",
     "Greetings! 🙋‍♀️",
-    "Nice to meet you! 💫",
-    "What's up? 🚀",
-    "Howdy! 🤠",
-    "Sup! 😎",
-    "Good vibes! ✌️"
+    "Nice to meet you! 💫"
 ];
 
 let currentGreeting = 0;
 const greetingElement = document.querySelector('.dynamic-greeting');
-const speechBubble = document.querySelector('.speech-bubble');
 
 function changeGreeting() {
-    // Add click animation
-    speechBubble.style.transform = 'scale(0.95)';
     greetingElement.style.opacity = '0';
     
     setTimeout(() => {
         currentGreeting = (currentGreeting + 1) % greetings.length;
         greetingElement.textContent = greetings[currentGreeting];
         greetingElement.style.opacity = '1';
-        speechBubble.style.transform = 'scale(1)';
-    }, 150);
+    }, 300);
 }
 
-// Add click event listener to speech bubble
-speechBubble.addEventListener('click', changeGreeting);
+// Change greeting every 3 seconds
+setInterval(changeGreeting, 3000);
 
-// Add smooth transitions
+// Add smooth opacity transition
 greetingElement.style.transition = 'opacity 0.3s ease';
-speechBubble.style.transition = 'transform 0.2s ease';
-
-// Add cursor pointer to show it's clickable
-speechBubble.style.cursor = 'pointer';
-
-// Optional: Add click instruction on first load
-setTimeout(() => {
-    if (currentGreeting === 0) {
-        speechBubble.title = 'Click me for different greetings!';
-    }
-}, 2000);
 
 
         // Initialize particles when page loads
