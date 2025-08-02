@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shriya Bandi - Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(34, 197, 94, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #22c55e;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #22c55e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #22c55e;
+        }
+
+        /* Header Section */
+        .blog-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            border-bottom: 2px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .blog-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #22c55e, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(34, 197, 94, 0.6)); }
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #a1a1aa;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.05));
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .blog-card-header {
+            height: 200px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+
+        .blog-card-content {
+            padding: 2rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-tag {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .blog-date {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+        }
+
+        .blog-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #22c55e;
+        }
+
+        .blog-card p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more-btn {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        /* Blog Post Modal/Full View */
+        .blog-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .blog-modal.active {
+            display: block;
+        }
+
+        .blog-modal-content {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(10, 10, 10, 0.95));
+            border-radius: 20px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .blog-modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #22c55e;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(34, 197, 94, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .blog-modal-content h1 {
+            font-size: 2.5rem;
+            color: #22c55e;
+            margin-bottom: 1rem;
+        }
+
+        .blog-body {
+            padding: 2rem;
+            color: #d1d5db;
+        }
+
+        .blog-body h2 {
+            color: #22c55e;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            position: relative;
+        }
+
+        .blog-body h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .blog-body h3 {
+            color: #10b981;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .blog-body p {
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .blog-body ul, .blog-body ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-body code {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-body pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .blog-body pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(34, 197, 94, 0.2);
+            margin-top: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .blog-modal-content {
+                margin: 1rem;
+                border-radius: 15px;
+            }
+
+            .blog-modal-content h1 {
+                font-size: 2rem;
+            }
+
+            .blog-body {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-container {
+                padding: 2rem 1rem;
+            }
+
+            .blog-card-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Shriya Bandi</a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="#blog" class="active">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <h1>My Blog</h1>
+        <p>Exploring the intersection of AI, cybersecurity, and creative technology through insights, tutorials, and deep dives into cutting-edge tools and techniques.</p>
+    </section>
+
+    <!-- Main Blog Container -->
+    <div class="blog-container">
+        <div class="blog-grid">
+            <!-- Blog Post 1: DeepFloyd IF -->
+            <article class="blog-card fade-in" data-blog="deepfloyd">
+                <div class="blog-card-header">
+                    🎨
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span class="blog-tag">AI Art</span>
+                        <span class="blog-tag">DeepFloyd</span>
+                        <span class="blog-tag">Image Generation</span>
+                        <span class="blog-date">April 2023</span>
+                    </div>
+                    <h2>DeepFloyd IF - AI Art Model Deep Dive</h2>
+                    <p>Exploring the revolutionary DeepFloyd IF model that emerged in late April 2023. This state-of-the-art text-to-image generation model utilizes a unique three-stage cascaded approach, operating directly in pixel space for exceptional photorealistic results.</p>
+                    <button class="read-more-btn" onclick="openBlog('deepfloyd')">Read More</button>
+                </div>
+            </article>
+
+            <!-- Blog Post 2: HuggingFace -->
+            <article class="blog-card fade-in" data-blog="huggingface">
+                <div class="blog-card-header">
+                    🤗
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span class="blog-tag">Machine Learning</span>
+                        <span class="blog-tag">HuggingFace</span>
+                        <span class="blog-tag">NLP</span>
+                        <span class="blog-date">2023</span>
+                    </div>
+                    <h2>HuggingFace: Democratizing AI for Everyone</h2>
+                    <p>A comprehensive guide to HuggingFace, the revolutionary AI community platform that has transformed natural language processing and computer vision. Learn how it solves accessibility challenges and empowers developers worldwide.</p>
+                    <button class="read-more-btn" onclick="openBlog('huggingface')">Read More</button>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Blog Modal for DeepFloyd IF -->
+    <div class="blog-modal" id="deepfloyd-modal">
+        <div class="blog-modal-content">
+            <div class="blog-modal-header">
+                <button class="close-btn" onclick="closeBlog()">&times;</button>
+                <div class="blog-meta">
+                    <span class="blog-tag">AI Art</span>
+                    <span class="blog-tag">DeepFloyd</span>
+                    <span class="blog-tag">Image Generation</span>
+                    <span class="blog-date">April 2023</span>
+                </div>
+                <h1>DeepFloyd IF - AI Art Model Deep Dive</h1>
+            </div>
+            <div class="blog-body">
+                <p>DeepFloyd has emerged in the market of AI art model recently in late April 2023 but has proven itself in the market.</p>
+                
+                <h2>Introduction</h2>
+                <p>DeepFloyd is an open-source project that includes various AI models and techniques, including the DeepFloyd IF (Image Formation) model. DeepFloyd IF is a state-of-the-art text-to-image generation model that aims to generate high-quality images based on textual prompts. It utilizes advanced techniques such as pixel diffusion and powerful text encoders to achieve impressive results.</p>
+
+                <h2>Architecture Description</h2>
+                <p>DeepFloyd IF is composed of three cascaded stages:</p>
+                <ul>
+                    <li><strong>Stage 1:</strong> A base model generates a 64x64-pixel image based on the text prompt.</li>
+                    <li><strong>Stage 2:</strong> Performs super-resolution, converting the 64x64-pixel image to a higher resolution of 256x256 pixels.</li>
+                    <li><strong>Stage 3:</strong> Another super-resolution model further upscales the image to 1024x1024 pixels.</li>
+                </ul>
+
+                <p>The model incorporates a frozen text encoder based on the T5 transformer to extract text embeddings, which are then fed into a UNet architecture enhanced with cross-attention and attention pooling. This architecture allows the model to capture both global and local information from the text prompt and generate visually coherent and realistic images.</p>
+
+                <h2>Advantages</h2>
+                <h3>1. Photorealistic Image Generation</h3>
+                <p>DeepFloyd IF produces high-quality images that exhibit a high degree of photorealism, thanks to its pixel-based approach and advanced architecture.</p>
+
+                <h3>2. Language Understanding</h3>
+                <p>The model benefits from the powerful T5 text encoder, which enhances its ability to understand and interpret textual prompts accurately.</p>
+
+                <h3>3. High-Frequency Detail Generation</h3>
+                <p>DeepFloyd IF excels in generating images with intricate details, including human faces, hands, and other high-frequency features.</p>
+
+                <h2>Disadvantages</h2>
+                <h3>Higher Parameter Count</h3>
+                <p>DeepFloyd IF has a larger number of parameters compared to some other text-to-image models, which can result in higher memory requirements and potentially slower inference times on resource-constrained hardware.</p>
+
+                <h2>Comparison with Other Models</h2>
+                <p>DeepFloyd IF distinguishes itself from other models, such as Stable Diffusion, in a few key aspects:</p>
+
+                <h3>1. Operating in Pixel Space</h3>
+                <p>While Stable Diffusion performs the denoising process in the latent space, DeepFloyd IF operates directly in the uncompressed pixel space. This allows it to preserve and generate high-frequency details more effectively.</p>
+
+                <h3>2. Text Encoder</h3>
+                <p>DeepFloyd IF employs T5-XXL as its text encoder, which is considered a more powerful text encoder compared to the CLIP model used by Stable Diffusion. This enables DeepFloyd IF to better understand and leverage the textual prompts for image generation.</p>
+
+                <p>It's important to note that the choice between DeepFloyd IF and other models ultimately depends on specific use cases, preferences, and the desired trade-offs between factors such as photorealism, computational requirements, and available resources.</p>
+
+                <h2>Model Components</h2>
+                <p>The deep learning community has created world class tools to run resource intensive models on consumer hardware:</p>
+                <ul>
+                    <li><code>accelerate</code> - provides utilities for working with large models.</li>
+                    <li><code>bitsandbytes</code> - makes 8 bit quantization available to all PyTorch models.</li>
+                    <li><code>safetensors</code> - not only ensures that save code is executed but also significantly speeds up the loading time of large models.</li>
+                </ul>
+
+                <p>Diffusers seamlessly integrates the above libraries to allow for a simple API when optimizing large models.</p>
+
+                <h3>Memory Requirements</h3>
+                <p>Let's map out the size of IF's model components in full float32 precision:</p>
+                <ul>
+                    <li><strong>T5-XXL Text Encoder:</strong> 20GB</li>
+                    <li><strong>Stage 1 UNet:</strong> 17.2 GB</li>
+                    <li><strong>Stage 2 Super Resolution UNet:</strong> 2.5 GB</li>
+                    <li><strong>Stage 3 Super Resolution Model:</strong> 3.4 GB</li>
+                </ul>
+
+                <p>The Google Colab has CPU RAM (13 GB RAM) as well as GPU VRAM (15 GB RAM for T4) which makes running the whole >10B IF model challenging! There is no way we can run the model in float32 as the T5 and Stage 1 UNet weights are each larger than the available CPU RAM.</p>
+
+                <p>In float16, the component sizes are 11GB, 8.6GB and 1.25GB for T5, Stage1 and Stage2 UNets respectively which is doable for the GPU, but we're still running into CPU memory overflow errors when loading the T5.</p>
+
+                <p>Therefore, we lower the precision of T5 even more by using <code>bitsandbytes</code> 8bit quantization which allows to save the T5 checkpoint with as little as 8 GB.</p>
+
+                <h2>Setup and Installation</h2>
+                <h3>Login and Access Token</h3>
+                <p>Before you can use IF, you need to accept its usage conditions. To do so:</p>
+                <ol>
+                    <li>Make sure to have a Hugging Face account and be logged in</li>
+                    <li>Accept the license on the model card of DeepFloyd/IF-I-XL-v1.0</li>
+                    <li>Install huggingface_hub: <code>pip install huggingface_hub --upgrade</code></li>
+                    <li>Run the login function in a Python shell</li>
+                </ol>
+
+                <pre><code>from huggingface_hub import login
+login()</code></pre>
+
+                <h2>Tested Use Cases</h2>
+                <p>The model has been tested with various creative prompts including:</p>
+                <ul>
+                    <li>"Water color painting of a traditional indian woman dancer"</li>
+                    <li>"comic of a coconut filled with roses and floating in pink water with rainbow"</li>
+                    <li>"a photo of a violet baseball with yellow text: 'deep floyd'. 50mm lens, photo realism, cine lens."</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>IF in 32 bit floating point precision uses 40 GB of weights in total. We showed how using only open source models and libraries, IF can be ran on a Google Colab instance. The ML ecosystem benefits deeply from the sharing of open tools and open models. This notebook alone used models from DeepFloyd, StabilityAI, and LAION. The libraries used -- Diffusers, Transformers, Accelerate, bitsandbytes -- all contribute to making advanced AI accessible to everyone.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Modal for HuggingFace -->
+    <div class="blog-modal" id="huggingface-modal">
+        <div class="blog-modal-content">
+            <div class="blog-modal-header">
+                <button class="close-btn" onclick="closeBlog()">&times;</button>
+                <div class="blog-meta">
+                    <span class="blog-tag">Machine Learning</span>
+                    <span class="blog-tag">HuggingFace</span>
+                    <span class="blog-tag">NLP</span>
+                    <span class="blog-date">2023</span>
+                </div>
+                <h1>HuggingFace: Democratizing AI for Everyone</h1>
+            </div>
+            <div class="blog-body">
+                <h2>Introduction</h2>
+                <p>HuggingFace has emerged as a prominent AI community that has revolutionized the field of Natural Language Processing (NLP), computer vision, and more. With its extensive collection of open-source models, datasets, and libraries, HuggingFace has become a go-to resource for developers, researchers, and tech giants alike. In this blog post, we will delve deeper into what HuggingFace is, the problems it solves, how to use it effectively, and showcase a few examples to demonstrate its capabilities.</p>
+
+                <h2>What is HuggingFace?</h2>
+                <p>HuggingFace, founded in 2016 by Clément Delangue, Julien Chaumond, and Thomas Wolf, began as a chatbot app targeted at teenagers. However, the company quickly recognized the potential for advancing machine learning and pivoted its focus. Today, HuggingFace is most renowned for its Transformers library, a Python package that offers open-source implementations of transformer models for various text, image, and audio tasks. Additionally, HuggingFace developed the Hugging Face Hub, a centralized web service that hosts code repositories, models, datasets, and web applications.</p>
+
+                <h2>The Problem it Solves</h2>
+                <p>HuggingFace addresses several key challenges faced by AI developers and researchers. One of the primary problems it solves is democratizing access to state-of-the-art models. Building high-quality models from scratch requires significant computational resources and expertise. However, HuggingFace's extensive collection of pre-trained models, numbering over 61,000 at the time of writing, eliminates the need to start from scratch. These models have already been trained on massive datasets, allowing developers to fine-tune them for their specific applications. This not only saves time but also provides access to cutting-edge AI capabilities to a broader audience.</p>
+
+                <p>Another problem HuggingFace tackles is the availability of diverse and high-quality datasets. Training AI models requires access to relevant and well-curated datasets. With over 7,000 datasets in the HuggingFace Dataset collection, developers and researchers can leverage existing datasets to train their models or fine-tune them to achieve better performance. The Datasets library provided by HuggingFace simplifies the process of loading and processing these datasets, providing essential operations such as shuffling, sampling, and filtering.</p>
+
+                <h2>How to use HuggingFace?</h2>
+                <p>To harness the power of HuggingFace effectively, follow these step-by-step instructions:</p>
+
+                <h3>Step 1: Install the Transformers Library</h3>
+                <p>Begin by installing the Transformers library, which is compatible with popular deep learning frameworks such as PyTorch, TensorFlow, and JAX. This library serves as a bridge between pre-trained models and your application, simplifying the integration process.</p>
+
+                <h3>Step 2: Choose a Pre-trained Model</h3>
+                <p>HuggingFace offers an extensive collection of pre-trained models. These models cover a wide range of NLP, computer vision, and audio tasks. Carefully select the model that aligns with your specific application requirements.</p>
+
+                <h3>Step 3: Load and Utilize the Model</h3>
+                <p>Use the Transformers library to load the chosen pre-trained model into your application. This step involves initializing the model and configuring the necessary parameters. Once loaded, the model can be used for various tasks such as text classification, summarization, image classification, and more.</p>
+
+                <h3>Step 4: Fine-tune the Model (Optional)</h3>
+                <p>HuggingFace allows fine-tuning of pre-trained models on specific datasets to enhance their performance for specific tasks. By utilizing the pre-trained weights as a starting point, fine-tuning enables customization and adaptation to domain-specific data.</p>
+
+                <h3>Step 5: Leverage the Hugging Face Hub and Datasets</h3>
+                <p>The Hugging Face Hub serves as a central repository for models, datasets, code repositories, and collaborative projects. Explore the hub to access a wealth of resources contributed by the AI community. You can download pre-trained models, share your models and datasets, and participate in discussions to contribute to the community's growth.</p>
+
+                <h2>Examples and Demonstrations</h2>
+                <h3>Example 1: Text Generation using GPT-2</h3>
+                <p>Using the Transformers library, we can generate text using the GPT-2 model. By simply providing a prompt, the model can generate coherent and contextually relevant text. For instance, given the prompt "Once upon a time in a …," the model can automatically complete the sentence with an imaginative and creative continuation.</p>
+
+                <h3>Installation and Setup</h3>
+                <p>First, install the Transformers library and import the required modules:</p>
+                <pre><code>pip install transformers torch</code></pre>
+
+                <p>Then load the pre-trained GPT2 model and tokenizer:</p>
+                <pre><code>from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+model_name = "gpt2"
+model = GPT2LMHeadModel.from_pretrained(model_name)
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)</code></pre>
+
+                <h3>Decoding Methods for Text Generation</h3>
+                
+                <h4>Method 1: Greedy Search</h4>
+                <p>Greedy search simply selects the word with the highest probability as the next word at each timestep:</p>
+                <pre><code>input_text = "I enjoy walking with my cute dog"
+input_ids = tokenizer.encode(input_text, return_tensors='pt')
+
+# Generate text using greedy search
+with torch.no_grad():
+    output = model.generate(input_ids, max_length=50, do_sample=False)
+    
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+print(generated_text)</code></pre>
+
+                <p><strong>Output:</strong></p>
+                <pre><code>I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.</code></pre>
+
+                <h4>Method 2: Beam Search</h4>
+                <p>Beam search reduces the risk of missing hidden high probability word sequences by keeping track of the most likely hypotheses:</p>
+                <pre><code>input_text = "I enjoy walking with my cute dog"
+input_ids = tokenizer.encode(input_text, return_tensors='pt')
+
+# Generate text using beam search
+with torch.no_grad():
+    output = model.generate(
+        input_ids, 
+        max_length=50, 
+        num_beams=5, 
+        do_sample=False,
+        early_stopping=True
+    )
+    
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+print(generated_text)</code></pre>
+
+                <h4>Method 3: Sampling</h4>
+                <p>Sampling randomly picks the next word according to its conditional probability distribution:</p>
+                <pre><code>input_text = "I enjoy walking with my cute dog"
+input_ids = tokenizer.encode(input_text, return_tensors='pt')
+
+# Generate text using sampling
+with torch.no_grad():
+    output = model.generate(
+        input_ids, 
+        max_length=50, 
+        do_sample=True,
+        temperature=0.7,
+        top_p=0.9
+    )
+    
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+print(generated_text)</code></pre>
+
+                <p>These are the three main decoding methods for text generation using Transformers. You can experiment with different parameters and settings to achieve the desired output quality and creativity.</p>
+
+                <h2>Key Features and Benefits</h2>
+                <ul>
+                    <li><strong>Extensive Model Collection:</strong> Over 61,000 pre-trained models covering various domains</li>
+                    <li><strong>Rich Dataset Library:</strong> More than 7,000 curated datasets for training and evaluation</li>
+                    <li><strong>Framework Compatibility:</strong> Works seamlessly with PyTorch, TensorFlow, and JAX</li>
+                    <li><strong>Community-Driven:</strong> Active community contributing models, datasets, and improvements</li>
+                    <li><strong>Easy Integration:</strong> Simple APIs for loading and using complex models</li>
+                    <li><strong>Fine-tuning Support:</strong> Tools for adapting models to specific use cases</li>
+                </ul>
+
+                <h2>Use Cases and Applications</h2>
+                <p>HuggingFace enables a wide range of applications across different domains:</p>
+                <ul>
+                    <li><strong>Natural Language Processing:</strong> Text classification, sentiment analysis, named entity recognition</li>
+                    <li><strong>Text Generation:</strong> Creative writing, code generation, chatbots</li>
+                    <li><strong>Computer Vision:</strong> Image classification, object detection, image segmentation</li>
+                    <li><strong>Audio Processing:</strong> Speech recognition, audio classification, text-to-speech</li>
+                    <li><strong>Multimodal Tasks:</strong> Visual question answering, image captioning</li>
+                </ul>
+
+                <h2>The Impact on AI Democratization</h2>
+                <p>HuggingFace has fundamentally changed how AI research and development is conducted by:</p>
+                <ul>
+                    <li>Lowering barriers to entry for AI development</li>
+                    <li>Enabling rapid prototyping and experimentation</li>
+                    <li>Fostering collaboration and knowledge sharing</li>
+                    <li>Standardizing model sharing and deployment practices</li>
+                    <li>Making state-of-the-art models accessible to everyone</li>
+                </ul>
+
+                <h2>Future Directions</h2>
+                <p>As HuggingFace continues to evolve, we can expect to see:</p>
+                <ul>
+                    <li>Enhanced support for emerging model architectures</li>
+                    <li>Better tools for model optimization and deployment</li>
+                    <li>Improved collaborative features for the community</li>
+                    <li>Advanced analytics and monitoring capabilities</li>
+                    <li>Stronger integration with cloud platforms and edge devices</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>HuggingFace has emerged as a game-changer in the AI landscape, providing a comprehensive ecosystem of open-source models, datasets, and libraries. By solving the problem of accessibility and democratizing AI capabilities, HuggingFace empowers developers, researchers, and organizations to leverage state-of-the-art AI technologies effectively. With the Transformers library and the Hugging Face Hub, users can easily utilize pre-trained models, collaborate with the community, and contribute to the advancement of AI.</p>
+
+                <p>Whether you're a beginner taking your first steps into AI or an expert pushing the boundaries of what's possible, HuggingFace offers a versatile and user-friendly platform to unlock the potential of AI in various domains. The platform's commitment to open-source principles and community-driven development ensures that the benefits of AI continue to be accessible to everyone, fostering innovation and creativity across the globe.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Shriya Bandi. Built with passion and lots of coffee ☕ | QSparkler Award Winner 🏆</p>
+    </footer>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Blog modal functions
+        function openBlog(blogId) {
+            const modal = document.getElementById(blogId + '-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBlog() {
+            const modals = document.querySelectorAll('.blog-modal');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside content
+        document.querySelectorAll('.blog-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeBlog();
+                }
+            });
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBlog();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
+
+        // Add typing effect to header title
+        const headerTitle = document.querySelector('.blog-header h1');
+        const originalText = headerTitle.textContent;
+        headerTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                headerTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            }
+        };
+        
+        // Start typing effect after a short delay
+        setTimeout(typeWriter, 1000);
+
+        // Add active state to current nav link
+        const currentNavLink = document.querySelector('.nav-links a[href="#blog"]');
+        if (currentNavLink) {
+            currentNavLink.style.color = '#22c55e';
+            currentNavLink.style.fontWeight = '700';
+        }
+    </script>
+</body>
+</html>
